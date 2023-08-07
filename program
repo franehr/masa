@@ -1,0 +1,70 @@
+import csv
+import os
+
+DATA_FILE = "receipts.csv"
+
+def load_data():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r", newline="") as file:
+            reader = csv.DictReader(file)
+            return list(reader)
+    return []
+
+def save_data(data):
+    with open(DATA_FILE, "w", newline="") as file:
+        fieldnames = ["date", "merchant", "amount"]
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(data)
+
+def add_receipt(data):
+    date = input("Enter date (YYYY-MM-DD): ")
+    merchant = input("Enter merchant name: ")
+    amount = float(input("Enter amount: "))
+
+    data.append({"date": date, "merchant": merchant, "amount": amount})
+    save_data(data)
+    print("Receipt added successfully!")
+
+def view_receipts(data):
+    print("\nReceipts:")
+    for receipt in data:
+        print(f"{receipt['date']} - {receipt['merchant']} - ${receipt['amount']}")
+
+def search_receipts(data):
+    search_term = input("Enter search term: ")
+    search_results = [receipt for receipt in data if search_term.lower() in receipt["merchant"].lower()]
+    
+    if search_results:
+        print("\nSearch Results:")
+        for receipt in search_results:
+            print(f"{receipt['date']} - {receipt['merchant']} - ${receipt['amount']}")
+    else:
+        print("No matching receipts found.")
+
+def main():
+    data = load_data()
+
+    while True:
+        print("\nReceipt Manager Menu:")
+        print("1. Add Receipt")
+        print("2. View Receipts")
+        print("3. Search Receipts")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1/2/3/4): ")
+
+        if choice == "1":
+            add_receipt(data)
+        elif choice == "2":
+            view_receipts(data)
+        elif choice == "3":
+            search_receipts(data)
+        elif choice == "4":
+            print("Exiting Receipt Manager.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
