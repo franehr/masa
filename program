@@ -68,3 +68,37 @@ def main():
 
 if __name__ == "__main__":
     main()
+import tkinter as tk
+from tkinter import ttk
+
+# Add your functions for receipt management here
+# (add_receipt, view_receipts, search_receipts, etc.)
+
+def add_receipt_button_clicked():
+    # Implement the logic to add a receipt here
+    pass
+
+def view_receipts_button_clicked():
+    # Implement the logic to view receipts here
+    pass
+
+def search_receipts_button_clicked():
+    # Implement the logic to search receipts here
+    pass
+
+# Create the main application window
+app = tk.Tk()
+app.title("Receipt Manager")
+
+# Create GUI elements
+add_receipt_button = ttk.Button(app, text="Add Receipt", command=add_receipt_button_clicked)
+view_receipts_button = ttk.Button(app, text="View Receipts", command=view_receipts_button_clicked)
+search_receipts_button = ttk.Button(app, text="Search Receipts", command=search_receipts_button_clicked)
+
+# Place the GUI elements on the window
+add_receipt_button.pack(pady=10)
+view_receipts_button.pack(pady=10)
+search_receipts_button.pack(pady=10)
+
+# Start the main event loop
+app.mainloop()
